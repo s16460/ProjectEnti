@@ -29,22 +29,24 @@ namespace EntitytProject.Services
             return doctors;
         }
 
-        public IQueryable<DoctorResp> getDoctor(int id)
+        public DoctorResp getDoctor(int id)
         {
             var maxId = context.Doctors.Max(d => d.IdDoctor);
             if(maxId < id)
             {
                 return null;
             }
-             var doctor = context.Doctors.Where(d => d.IdDoctor == id).Select(d => new DoctorResp
-            {
+            var d =  context.Doctors.Where(d => d.IdDoctor == id).FirstOrDefault();
+            
+            DoctorResp dc = new DoctorResp{
                 IdDoctor = d.IdDoctor,
                 FirstName = d.FirstName,
                 LastName = d.LastName,
                 Email = d.Email
-            });
+            };
+            
 
-            return doctor;
+            return dc;
         }
 
         public String addDoctor(DoctorReq doctor)

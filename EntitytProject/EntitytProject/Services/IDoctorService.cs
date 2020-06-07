@@ -10,7 +10,7 @@ namespace EntitytProject.Services
     public interface IDoctorService
     {
         public List<DoctorResp> getDoctors();
-        public IQueryable<DoctorResp> getDoctor(int id);
+        public DoctorResp getDoctor(int id);
         public String addDoctor(DoctorReq doctor);
         public String updateDoctor(DoctorReq doctor);
         public String deleteDoctor(int id);
