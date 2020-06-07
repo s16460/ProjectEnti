@@ -30,44 +30,49 @@ namespace EntitytProject.Controllers
         [Route("single")]
         public IActionResult GetDoctor(int id)
         {
-            if(doctorService.getDoctor(id) == null)
+            var resp = doctorService.getDoctor(id);
+            if (resp == null)
             {
                 return BadRequest("brak doktora");
             }
 
-            return Ok(doctorService.getDoctor(id));
+            return Ok(resp);
         }
 
         [HttpPost]
         public IActionResult AddDoctor(DoctorReq newDoctor)
         {
-            if (doctorService.addDoctor(newDoctor) == null)
+            var resp = doctorService.addDoctor(newDoctor);
+            if (resp == null)
             {
                 return BadRequest("problem z dodaniem doktora");
             }
-            return Ok(doctorService.addDoctor(newDoctor));
+            return Ok(resp);
         }
 
         [HttpPut]
         public IActionResult UpdateDoctor(DoctorReq doctorToUpdate)
         {
-            if (doctorService.updateDoctor(doctorToUpdate) == null)
+            var resp = doctorService.updateDoctor(doctorToUpdate);
+
+            if (resp == null)
             {
                 return BadRequest("problem z updejtem doktora");
             }
 
-            return Ok(doctorService.updateDoctor(doctorToUpdate));
+            return Ok(resp);
         }
 
         [HttpDelete]
         public IActionResult DeleteDoctor(int id)
         {
-            if (doctorService.deleteDoctor(id) == null)
+            var resp = doctorService.deleteDoctor(id);
+            if (resp == null)
             {
                 return BadRequest("problem z usnieciem doktora");
             }
 
-            return Ok(doctorService.deleteDoctor(id));
+            return Ok(resp);
         }
 
 
