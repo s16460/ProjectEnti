@@ -9,10 +9,10 @@ namespace EntitytProject.Services
 {
     public interface IDoctorService
     {
-        public IActionResult getDoctors();
-        public IActionResult getDoctor(int id);
-        public IActionResult addDoctor(DoctorReq doctor);
-        public IActionResult updateDoctor(DoctorReq doctor);
-        public IActionResult deleteDoctor(int id);
+        public List<DoctorResp> getDoctors();
+        public IQueryable<DoctorResp> getDoctor(int id);
+        public String addDoctor(DoctorReq doctor);
+        public String updateDoctor(DoctorReq doctor);
+        public String deleteDoctor(int id);
     }
 }

@@ -22,7 +22,7 @@ namespace EntitytProject.Controllers
         [HttpGet]
         public IActionResult seed()
         {
-            return seedService.seedDataBase();
+            return Ok(seedService.seedDataBase());
         }
 
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EntitytProject.Services
 {
-    public class SeedServiceImpl : ControllerBase, ISeedService
+    public class SeedServiceImpl : ISeedService
     {
 
         private readonly MSDatabaseContext context;
@@ -16,7 +16,7 @@ namespace EntitytProject.Services
             this.context = context;
         }
 
-        public IActionResult seedDataBase()
+        public String seedDataBase()
         {
             Doctor doc1 = new Doctor { 
                 FirstName = "Tadek",
@@ -142,7 +142,7 @@ namespace EntitytProject.Services
 
             context.SaveChanges();
 
-            return Ok("zaladowano dane");
+            return "ok";
         }
     }
 }

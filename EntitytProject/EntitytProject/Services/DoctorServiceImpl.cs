@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EntitytProject.Services
 {
-    public class DoctorServiceImpl : ControllerBase, IDoctorService
+    public class DoctorServiceImpl :  IDoctorService
     {
 
         private readonly MSDatabaseContext context;
@@ -16,7 +16,7 @@ namespace EntitytProject.Services
             this.context = context;
         }
 
-        public IActionResult getDoctors()
+        public List<DoctorResp> getDoctors()
         {
             List<DoctorResp> doctors = context.Doctors.Select(d => new DoctorResp
             {
@@ -25,29 +25,29 @@ namespace EntitytProject.Services
                 LastName = d.LastName,
                 Email = d.Email
             }).ToList();
-            
-            return Ok(doctors);
+
+            return doctors;
         }
 
-        public IActionResult getDoctor(int id)
+        public IQueryable<DoctorResp> getDoctor(int id)
         {
             var maxId = context.Doctors.Max(d => d.IdDoctor);
             if(maxId < id)
             {
-                return BadRequest("nie ma doktora o podanym id");
+                return null;
             }
-            var doctor = context.Doctors.Where(d => d.IdDoctor == id).Select(d => new DoctorResp
+             var doctor = context.Doctors.Where(d => d.IdDoctor == id).Select(d => new DoctorResp
             {
                 IdDoctor = d.IdDoctor,
                 FirstName = d.FirstName,
                 LastName = d.LastName,
                 Email = d.Email
             });
-           
-            return Ok(doctor);
+
+            return doctor;
         }
 
-        public IActionResult addDoctor(DoctorReq doctor)
+        public String addDoctor(DoctorReq doctor)
         {
             Doctor doc = new Doctor
             {
@@ -62,19 +62,19 @@ namespace EntitytProject.Services
             } catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
-                return BadRequest("Nie moge doktora doktora");
+                return null;
             }
-            return Ok("dodano doktora " + doctor);
+            return "dodano doktora";
         }
 
-        public IActionResult updateDoctor(DoctorReq doctor)
+        public String updateDoctor(DoctorReq doctor)
         {
 
             Doctor doctorToUpdate = context.Doctors.Where(d => d.IdDoctor == doctor.IdDoctor).FirstOrDefault();
 
             if (doctorToUpdate == null)
             {
-                return BadRequest("nie ma doktora o id " + doctor.IdDoctor);
+                return null;
             }
 
             doctorToUpdate.FirstName = doctor.FirstName;
@@ -88,19 +88,19 @@ namespace EntitytProject.Services
             } catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
-                return BadRequest("Nie moge updejtowac doktora o id " + doctor.IdDoctor);
+                return null;
             }
-            return Ok(doctor);
+            return "dodano doktora";
         }
 
-        public IActionResult deleteDoctor(int id)
+        public String deleteDoctor(int id)
         {
             Doctor doctorToDel = context.Doctors.Where(d => d.IdDoctor == id).FirstOrDefault();
 
 
             if (doctorToDel == null)
             {
-                return BadRequest("nie ma doktora o id "+ id);
+                return null;
             }
             try
             {
@@ -110,9 +110,9 @@ namespace EntitytProject.Services
             catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
-                return BadRequest("Nie moge usunac doktora o id " + id);
+                return null;
             }
-            return Ok("doktor usuniety");
+            return "usunieto";
         }
     }
 }

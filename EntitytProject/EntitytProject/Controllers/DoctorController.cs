@@ -22,32 +22,52 @@ namespace EntitytProject.Controllers
         [HttpGet]
         public IActionResult GetDoctors()
         {
-            return doctorService.getDoctors();
+
+            return Ok(doctorService.getDoctors());
         }
 
         [HttpGet]
         [Route("single")]
         public IActionResult GetDoctor(int id)
         {
-            return doctorService.getDoctor(id);
+            if(doctorService.getDoctor(id) == null)
+            {
+                return BadRequest("brak doktora");
+            }
+
+            return Ok(doctorService.getDoctor(id));
         }
 
         [HttpPost]
         public IActionResult AddDoctor(DoctorReq newDoctor)
         {
-            return doctorService.addDoctor(newDoctor);
+            if (doctorService.addDoctor(newDoctor) == null)
+            {
+                return BadRequest("problem z dodaniem doktora");
+            }
+            return Ok(doctorService.addDoctor(newDoctor));
         }
 
         [HttpPut]
         public IActionResult UpdateDoctor(DoctorReq doctorToUpdate)
         {
-            return doctorService.updateDoctor(doctorToUpdate);
+            if (doctorService.updateDoctor(doctorToUpdate) == null)
+            {
+                return BadRequest("problem z updejtem doktora");
+            }
+
+            return Ok(doctorService.updateDoctor(doctorToUpdate));
         }
 
         [HttpDelete]
         public IActionResult DeleteDoctor(int id)
         {
-            return doctorService.deleteDoctor(id);
+            if (doctorService.deleteDoctor(id) == null)
+            {
+                return BadRequest("problem z usnieciem doktora");
+            }
+
+            return Ok(doctorService.deleteDoctor(id));
         }
 
 

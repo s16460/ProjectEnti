@@ -8,7 +8,14 @@ namespace EntitytProject.Services
 {
     public class MSDatabaseContext : DbContext
     {
-
+		
+		// await context.doctor.defaultAsync -> zawsze przed async 
+		//Z poziomu Package Manager Console zainstalować następującą paczkę: Install-Package Microsoft.AspNetCore.Mvc.NewtonsoftJson
+		//W klasie Startup w metodzie ConfigureServices zmienić linijkę w której jest wywołanie metody rozszerzeń AddControllers() na następującą treść:
+		//services.AddControllers().AddNewtonsoftJson(options =>
+	                //{
+	                 //   options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+	               // });
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Medicament> Medicaments { get; set; }
         public DbSet<Patient> Patients { get; set; }

@@ -8,7 +8,7 @@ namespace EntitytProject.Services
 {
     public interface ISeedService
     {
-        public IActionResult seedDataBase();
+        public String seedDataBase();
 
     }
 }
