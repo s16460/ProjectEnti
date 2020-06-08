@@ -9,7 +9,9 @@ namespace EntitytProject.Services
     public class MSDatabaseContext : DbContext
     {
 		
-		// await context.doctor.defaultAsync -> zawsze przed async 
+		// await context.doctor.defaultAsync -> zawsze przed async , korzystac z metod scynchorniczonych i przed nimi dawac await
+		
+		
 		//Z poziomu Package Manager Console zainstalować następującą paczkę: Install-Package Microsoft.AspNetCore.Mvc.NewtonsoftJson
 		//W klasie Startup w metodzie ConfigureServices zmienić linijkę w której jest wywołanie metody rozszerzeń AddControllers() na następującą treść:
 		//services.AddControllers().AddNewtonsoftJson(options =>
@@ -88,6 +90,7 @@ namespace EntitytProject.Services
             {
                 entity.HasKey(e => new { e.IdMedicament, e.IdPrescription });
                 entity.Property(e => e.Details).HasMaxLength(100);
+                entity.Property(e => e.Dose).IsRequired(false);
                 entity.ToTable("Prescription_Medicament");
             });
         }
